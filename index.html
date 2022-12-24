@@ -62,9 +62,27 @@
             }
         }
 
-        function gameOver(netice){
-            clearInterval(counter)
-            alert(netice ? "Tebrikler ! Uddun !":"Uduzdun!!!")
+        function gameOver(netice) {
+                clearInterval(counter)
+
+                let tr = table.getElementsByTagName('tr')
+                console.log(tr)
+                if(netice == 0){
+                    let game = ['G','A','M','E']
+                    let over = ['O','V','E','R']
+                    
+                    let td1 = tr[1].getElementsByTagName('td')
+                    let td2 = tr[2].getElementsByTagName('td')
+
+                    for(let i = 1;i<=2;i++){
+                        tr[i].style.background = 'black'
+                        tr[i].style.color = 'gold'
+                            for (let j = 0; j < td1.length; j++) {
+                                td1[j].innerHTML = game[j]
+                                td2[j].innerHTML = over[j]
+                            }
+                       }
+                }
         }
         function decreasetimer(){
             if(sec>0){
