@@ -17,29 +17,35 @@
         text-align: center;
         border:1px solid #333;
        }
+       span{
+        margin: 50%;
+       }
     </style>
 </head>
 <body>
-    <table id="cedvel">
-        
-        
-    </table>
+    <span id="timer">10</span>
+    <table id="cedvel"></table>
     <script>
         const cedvel=document.getElementById('cedvel');
+        let  timer = document.getElementById('timer')
         let kod='';
-        let arr= [];// bir array aciriq 
-        
-        for(let i=1; i<=16; i++){//loopnan 1,16 qeder reqemeri array push edirik
-            arr.push(i);
+        let arr= [];
+        let n = 1
+        let sec = 10
 
+        let counter = setInterval(decreasetimer,1000)
+
+
+        
+        for(let i=1; i<=16; i++){
+            arr.push(i);
         }
         for(let i=0; i<4; i++){
              kod+= '<tr>'
             for(let j=0; j<4; j++){
-
-             let x= rand(0,arr.length-1);//0,15 random array indeksin goturur// ardicil vermeyecek 
-             kod+= `<td onclick="klik(this)">${arr[x]}</td>`//hemin indeksdeki ellemnti mene qaytarir
-             arr.splice(x,1);// tekrarlamaga imkan vermir, silir kohneni ikinci defe 8 vermeyecek
+                let x= rand(0,arr.length-1);
+                kod+= `<td onclick="klik(this)">${arr[x]}</td>`
+                arr.splice(x,1);
             }
             
             kod+= '</tr>'
@@ -47,12 +53,30 @@
         }
         cedvel.innerHTML= kod;
         function klik(td){
-            td.style="background:#EEE;color:#AAA";
-            console.log("Color");
+
+            if(td.innerHTML <= n){
+                td.style="background:#EEE;color:#AAA";
+                
+                if(n < 16) n++
+                else gameOver(1)
+            }
         }
+
+        function gameOver(netice){
+            clearInterval(counter)
+            alert(netice ? "Tebrikler ! Uddun !":"Uduzdun!!!")
+        }
+        function decreasetimer(){
+            if(sec>0){
+                timer.innerText = --sec
+            }
+            else gameOver(0)
+        } 
+
         function rand(min, max){
             return Math.floor(Math.random()*(max-min+1))+min;
         }
+        
 
         
     </script>
